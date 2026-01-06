@@ -1,0 +1,969 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0031)http://station.goodsshop.store/ -->
+<html lang="uk"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>ЧОХЛИ НА АЙФОНИ</title>
+  <script src="station_files/2254078611729776" async=""></script><script async="" src="station_files/fbevents.js.%D0%B7%D0%B0%D0%B2%D0%B0%D0%BD%D1%82%D0%B0%D0%B6%D0%B5%D0%BD%D0%BD%D1%8F"></script><script src="station_files/575821428171589" async=""></script><script async="" src="station_files/fbevents%281%29.js.%D0%B7%D0%B0%D0%B2%D0%B0%D0%BD%D1%82%D0%B0%D0%B6%D0%B5%D0%BD%D0%BD%D1%8F"></script><script src="station_files/1076772420300672" async=""></script><script async="" src="station_files/fbevents%281%29.%D0%B7%D0%B0%D0%B2%D0%B0%D0%BD%D1%82%D0%B0%D0%B6%D0%B5%D0%BD%D0%BD%D1%8F"></script><script async="" src="station_files/fbevents%282%29.%D0%B7%D0%B0%D0%B2%D0%B0%D0%BD%D1%82%D0%B0%D0%B6%D0%B5%D0%BD%D0%BD%D1%8F"></script><script src="station_files/jquery.min.js.%D0%B7%D0%B0%D0%B2%D0%B0%D0%BD%D1%82%D0%B0%D0%B6%D0%B5%D0%BD%D0%BD%D1%8F"></script>
+  <meta name="viewport" content="width=480">
+  <link rel="shortcut icon" href="https://rjukzak3v1.trend11.shop/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" href="station_files/reset.css">
+  <link rel="stylesheet" type="text/css" href="station_files/styles.css">
+
+  <link rel="stylesheet" href="station_files/AvenirNextCyr.css" as="style" onload="this.onload=null;this.rel=&#39;stylesheet&#39;">
+  <noscript>
+    <link rel="stylesheet" href="css/AvenirNextCyr.css">
+  </noscript>
+  <link rel="stylesheet" type="text/css" href="station_files/owl.carousel.min.css">
+
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2254078611729776');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="tr?id=2254078611729776&ev=PageView&noscript=1"></noscript>
+<!-- End Meta Pixel Code -->
+
+<script src="station_files/code" type="text/javascript" defer="" async=""></script><script src="./station_files/code(1)" type="text/javascript" defer="" async=""></script><script src="station_files/code(2)" type="text/javascript" defer="" async=""></script></head>
+<!-- ORDER POPUP -->
+<style>
+  .order-popup {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translate(-50%, 20px);
+    background: #ffffff;
+    color: #000;
+    padding: 12px 14px;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: 9999;
+    max-width: calc(100% - 32px);
+    pointer-events: none;
+  }
+
+  .order-popup.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  .order-dot {
+    width: 8px;
+    height: 8px;
+    background: #2ecc71;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 768px) {
+    .order-popup {
+      left: 20px;
+      transform: translate(0, 20px);
+      font-size: 14px;
+    }
+    .order-popup.show {
+      transform: translate(0, 0);
+    }
+  }
+</style>
+
+<div class="order-popup" id="orderPopup">
+  <div class="order-dot"></div>
+  <div id="orderText"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const users = [
+    { name: 'Олександр', city: 'Київ', gender: 'male' },
+    { name: 'Максим', city: 'Дніпро', gender: 'male' },
+    { name: 'Владислав', city: 'Харків', gender: 'male' },
+    { name: 'Ірина', city: 'Львів', gender: 'female' },
+    { name: 'Анна', city: 'Одеса', gender: 'female' },
+    { name: 'Марія', city: 'Тернопіль', gender: 'female' }
+  ];
+
+  let queue = [];
+  const popup = document.getElementById('orderPopup');
+  const text = document.getElementById('orderText');
+
+  function shuffle(array) {
+    return array.sort(() => Math.random() - 0.5);
+  }
+
+  function refillQueue() {
+    queue = shuffle([...users]);
+  }
+
+  function showOrder() {
+    if (queue.length === 0) {
+      refillQueue();
+    }
+
+    const user = queue.shift();
+    const verb = user.gender === 'female' ? 'зробила' : 'зробив';
+
+    text.innerHTML = `<strong>${user.name}</strong> з м. ${user.city} ${verb} замовлення`;
+
+    popup.classList.add('show');
+
+    setTimeout(() => {
+      popup.classList.remove('show');
+    }, 4000);
+  }
+
+  refillQueue();
+  setTimeout(showOrder, 3000);
+  setInterval(showOrder, 9000);
+
+});
+</script>
+<!-- END ORDER POPUP -->
+
+<body>
+  <div class="main_wrapper">
+
+    <!-- header 3 -->
+    <header class="offer_section offer3">
+      <div class="title_block">
+        <h1 class="main_title">ЧОХЛИ НА АЙФОНИ<br> </h1>
+      </div>
+      <div class="image_block">
+        <img class="offer_image" src="station_files/ronin21.jpg" alt="">
+        <!-- <div class="discount_block">
+					<div class="value">-
+						%
+					</div>
+					<div class="text">знижка</div>
+				</div> -->
+      </div>
+      <div class="benefits_list clearfix">
+        <div class="benefit_item">Доставка по Україні </div>
+        <div class="benefit_item">Обмежена пропозиція</div>
+        <div class="benefit_item">Оплата при отриманні</div>
+      </div>
+      <div class="price_block clearfix">
+        <div class="price_item old">
+          <div class="text">Звичайна ціна:</div>
+          <div class="value">
+            429грн
+          </div>
+        </div>
+        <div class="price_item new">
+          <div class="text">Ціна зі знижкою:</div>
+          <div class="value" style="color: red;">
+            299грн
+          </div>
+        </div>
+      </div>
+
+
+    <script>document.addEventListener('DOMContentLoaded', function () {
+      function createTimer(elementId, durationInMinutes) {
+          const endDate = new Date(new Date().getTime() + durationInMinutes * 60 * 1000);
+          const hoursElem = document.querySelector(`#${elementId} .count.hours`);
+          const minutesElem = document.querySelector(`#${elementId} .count.minutes`);
+          const secondsElem = document.querySelector(`#${elementId} .count.seconds`);
+  
+          function updateTimer() {
+              const now = new Date();
+              let timeLeft = endDate - now;
+  
+              if (timeLeft <= 0) {
+                  // Якщо час вийшов, перезапускаємо таймер на вказану тривалість
+                  timeLeft = durationInMinutes * 60 * 1000;
+                  endDate.setTime(new Date().getTime() + timeLeft);
+              }
+  
+              const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+              const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+              const seconds = Math.floor((timeLeft / 1000) % 60);
+  
+              hoursElem.textContent = hours.toString().padStart(2, '0');
+              minutesElem.textContent = minutes.toString().padStart(2, '0');
+              secondsElem.textContent = seconds.toString().padStart(2, '0');
+          }
+  
+          setInterval(updateTimer, 1000);
+          updateTimer(); // Початковий виклик
+      }
+  
+      // Створюємо два таймери з однаковою тривалістю (60 хвилин)
+      createTimer("first-timer", 60);
+      createTimer("second-timer", 60);
+  });</script>
+
+
+<div class="timer" id="first-timer">
+  <p>Пропозиція діє:</p>
+  <br>
+  <div class="timer_container">
+      <div class="timer_block">
+          <div class="count hours">00</div>
+          <div class="text">годин</div>
+      </div>
+      <div class="timer_block">
+          <div class="count minutes">59</div>
+          <div class="text">хвилин</div>
+      </div>
+      <div class="timer_block">
+          <div class="count seconds">10</div>
+          <div class="text">секунд</div>
+      </div>
+  </div>
+</div>
+      <style>.timer {
+        text-align: center;
+        font-family: Arial, sans-serif;
+        margin: 20px auto;
+        font-size: 24px;
+        color: #333;
+    }
+    
+    .timer_container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .timer_block {
+        background-color: #a39c9c;
+        border: 2px solid #333;
+        border-radius: 8px;
+        padding: 20px;
+        width: 110px;
+        height: 70px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+    
+    .count {
+        font-size: 32px; /* Розмір цифр */
+        color: #333;
+    }
+    
+    .text {
+        font-size: 14px; /* Розмір тексту під цифрами */
+        color: #555;
+    }</style>
+      <a href="#order_form" class="button">Замовити зі знижкою</a>
+      <div class="products_count">Залишилось : <span>40 шт</span></div>
+
+    </header>
+
+    <section class="benefits_section" style="padding-top: 0;">
+      <h2 class="title">Чохол-тримач — максимум зручності та захисту щодня</h2>
+     
+      <div class="benefits_list2">
+             <ul>
+ <div class="video-box">
+  <video
+    class="video-45"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto">
+    <source src="station_files/q5.MP4" type="video/mp4">
+  </video>
+</div>
+
+<li>Втомилися від постійного ковзання смартфона з рук? Чохол-тримач — це ідеальне рішення для активного ритму життя. Він надійно захищає ваш пристрій і робить користування смартфоном максимально комфортним у будь-якій ситуації <br>
+
+
+ </li>
+           </ul>
+      </div>
+     
+      <div class="benefits_list2">
+
+        <!-- <p style="padding: 0 40px;">Універсальний та багатофункціональний рюкзак, що поєднує в собі рюкзак, термосумку та складаний стілець. Незамінна річ на пікніку в лісі, рибалці або на дачі.
+          <br>
+          <br> Виконаний із щільного та міцного матеріалу. Має термосумку, в яку поміститься досить велика кількість продуктів та напоїв.
+          <br>
+          <br> Не займає багато місця. Витримує навантаження до 150 кг.</p> -->
+
+        <div class="benefit_item">
+          <img class="img" src="station_files/ronin2.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         Продуманий дизайн з вбудованим тримачем забезпечує впевнений хват, дозволяє користуватися телефоном однією рукою та зручно фіксувати його у горизонтальному положенні. Більше ніяких падінь, незручностей і компромісів між стилем та функціональністю.
+          <div class="text_block">
+            <h4 style="color: red;">ЦІНА ЗІ ЗНИЖКОЮ: 299 ГРН</h4>
+             <!-- <img class="img" src="station_files/z2.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+           <ul> -->
+
+<!-- <li>EB3A досить компактний, але ви можете розраховувати на нього при великих роботах.&nbsp;Незалежно від того, чи це маленький блендер, міні-рисоварка чи невеликий холодильник, EB3A допоможе вам у всьому завдяки інвертору змінного струму на 600 Вт з чистою синусоїдою (1200 Вт) і вражаючій потужності 268 Вт-год.
+ </li>
+           </ul>
+               <img class="img" src="station_files/z3.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+
+           <img class="img" src="station_files/z4.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+          <img class="img" src="station_files/z5.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+ <ul>
+
+<li>Має функцію швидкого заряджання потужністю 430 Вт, яка забезпечує заряд на 80% за час, необхідний вам, щоб випити чашку кави або поспілкуватися, забезпечуючи достатню потужність за потреби.
+
+
+</li> -->
+           </ul>
+
+
+          </div>
+        </div>
+
+     
+        <a href="#order_form" class="button">Замовити зі знижкою</a>
+        
+        
+        
+           <div class="benefit_item">
+          <img class="img" src="station_files/ronin222.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+          <div class="text_block">
+            <h4 style="color: red;">ЦІНА ЗІ ЗНИЖКОЮ: 299 ГРН</h4>
+          
+
+  <ul>
+
+<!-- <li>Надійне джерело енергії для будь-яких умов Зарядна станція Bluetti AC50P – це потужний, але компактний пристрій, що забезпечує надійне живлення у будь-якій ситуації. З ємністю 504 Вт • год і потужністю 700 Вт, цей девайс стане незамінним помічником у поїздках на природу, кемпінгу або аварійного резерву в домашніх умовах.
+
+
+</li>
+           </ul>
+               <img class="img" src="station_files/kod7.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+
+           <img class="img" src="station_files/kod9.png" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+          <img class="img" src="station_files/kod8.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+ <ul>
+
+<li>Оснащена передовою системою керування батареями AI-BMS та підтримкою кількох способів заряджання, Bluetti AC50P гарантує безперебійне живлення ваших пристроїв у будь-яких умовах. Потужність та ефективність Bluetti AC50P пропонує 700 Вт вихідної потужності, що на 200 Вт більше, ніж аналоги, забезпечуючи можливість роботи широкого спектру пристроїв. Завдяки режиму підвищеної потужності, станція здатна витримувати навантаження до 1200 Вт, що ідеально підходить для приладів, таких як чайники або дрібна техніка.
+
+
+</li>
+           </ul> -->
+
+
+
+і
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+
+        <a href="#order_form" class="button">Замовити зі знижкою</a>
+
+        
+        
+        
+        
+        
+           <div class="benefit_item">
+          <img class="img" src="station_files/stark1.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+          <div class="text_block">
+            <h4 style="color: red;">ЦІНА ЗІ ЗНИЖКОЮ: 299 ГРН</h4>
+ 
+  <ul>
+
+<!-- <li>Зарядна станція Bluetti AC70 є високоякісним пристроєм для надійного та безпечного живлення. Її артикул EB70 свідчить про належність до серії передових продуктів компанії. Оснащена літій-залізо-фосфатним акумулятором (LiFePO4) ємністю 768 Вт/год, станція здатна виробляти номінальну потужність у 1000 Вт, що ідеально підходить для забезпечення енергією малопотужної техніки. 
+
+
+</li>
+           </ul>
+               <img class="img" src="station_files/kod2.png" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+
+           <img class="img" src="station_files/kod5.png" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+          <img class="img" src="station_files/kod3.png" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+ <ul>
+
+<li>Станція може похвалитися ресурсом акумулятора у 3000 циклів, забезпечуючи довговічність та надійність у використанні.
+Комплектація включає все необхідне для миттєвого використання: адаптер змінного струму, зарядні кабелі (у тому числі для автомобіля та сонячної панелі), керівництво користувача та гарантійний талон. Це робить станцію універсальним рішенням для різних ситуацій, чи то подорож, чи резервне електроживлення вдома.
+
+
+</li>
+           </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+
+        <a href="#order_form" class="button">Замовити зі знижкою</a>
+
+
+ <div class="benefit_item">
+          <img class="img" src="station_files/stark2.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+          <div class="text_block">
+                <h4 style="color: red;">ЦІНА ЗІ ЗНИЖКОЮ: 30999 ГРН</h4>
+          
+<img class="img" src="station_files/stark4.webp" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+  <ul>
+
+<li>Потужність, на яку завжди можна покластися<br>
+Розроблений як для внутрішнього, так і зовнішнього сценаріїв, має високу потужність, оскільки має ємність 1024 Вт·год і безперервну вихідну потужність 1800 Вт. Завдяки надшвидкій швидкості заряджання та портативному дизайну це універсальна електростанція для багатьох застосувань. Додаток BLUETTI також доступний, щоб зробити дистанційне керування та моніторинг у реальному часі неймовірно зручними лише кількома рухами по телефону. 
+
+
+</li>
+           </ul>
+               <img class="img" src="station_files/stark3.webp" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         <img class="img" src="station_files/stark6.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+ <img class="img" src="station_files/stark5.webp" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+       
+         
+         
+ <ul>
+
+<li>BLUETTI оснащує з постійною вихідною потужністю 1800 Вт і ємністю 1024 Вт-год, щоб задовольнити більшість потреб у електроенергії. Він також має режим Power Lifting, який забезпечує вихідну потужність 2700 Вт, щоб без зусиль запускати потужні пристрої. Широкий діапазон виходів, включаючи розетку змінного струму, USB-A, USB-C, розетку 12 В постійного струму та бездротову зарядну панель, створено для універсальної зарядки для життя поза мережею або в дорозі.
+
+
+
+
+</li>
+           </ul>
+
+ -->
+
+
+
+
+
+
+
+
+
+          <!-- </div>
+        </div>
+
+        <a href="#order_form" class="button">Замовити зі знижкою</a>
+
+ <div class="benefit_item">
+          <img class="img" src="station_files/ronin4.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+          <div class="text_block">
+            <h4 style="color: red;">ЦІНА ЗІ ЗНИЖКОЮ: 51999 ГРН</h4>
+          
+           <img class="img" src="station_files/y2.webp" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+  <ul>
+
+<li>Ідеальна електростанція для домашніх користувачів. Bluetti AC200L - це новітня модель портативної електростанції, в якій втілено багато новаторських поліпшень: у швидкості заряджання, рівні вихідної потужності, безшумності роботи та енергоефективності. Це універсальне рішення для задоволення ваших щоденних потреб в електроенергії.
+
+
+
+</li>
+           </ul>
+               <img class="img" src="station_files/y1.webp" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+<li>Потужність, на яку можна покластися. AC200L оснащено найкращою в галузі літій-залізофосфатною (LiFePO₄) батареєю та передовою інтелектуальною системою управління акумуляторами (BMS - Battery Management System) для забезпечення оптимальної безпеки та надійності. Довіртеся цій електростанції, яка настільки ж безпечна, наскільки й потужна. Електропостачання для тривалої відсутності енергії із захистом від перепадів напруги. Забезпечте безперебійне електроживлення вашого будинку навіть за раптових відключень. AC200L з під'єднаним до неї додатковим акумуляторним модулем не лише швидко запустить ваші електроприлади, а й захистить їх від неочікуваних вимкнень, що можуть негативно позначитися на довговічності пристроїв.
+
+
+</li>
+           <img class="img" src="station_files/y3.webp" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+ <img class="img" src="station_files/y4.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+
+
+  <img class="img" src="station_files/y5.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+
+
+
+
+
+
+          </div>
+        </div>
+
+
+
+
+        <a href="#order_form" class="button">Замовити зі знижкою</a>
+
+ 
+        <div class="benefit_item">
+          <img class="img" src="station_files/stark8.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+          <div class="text_block">
+            <h4 style="color: red;">ЦІНА ЗІ ЗНИЖКОЮ: 9999 ГРН</h4>
+          
+           <img class="img" src="station_files/stark111.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+  <ul>
+
+<li>Портативна зарядна станція TigFox T500 має реальний запас ємності, що дорівнює 540 Ват*Год, потужність, що дорівнює 850 Ват (пікова) / 500 Ват (номінальна), має вбудовану розетку на 220 Вольт, 3 стандартні USB-порти, один з яких швидкий, порт TYPE-C (швидкісний) та вихід (із штатним штекером) на 12 Вольт, має вбудовані світодіодні ліхтарі та прожектор.
+
+
+</li>
+           </ul>
+               <img class="img" src="station_files/stark222.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+         
+<li>Може живити холодильник, котел, насос, телевізор, портативні компютери, ноутбуки та інше обладнання на протязі значного часу. Зарядна станція TIG FOX T500 здатна забезпечити незалежну роботу манікюрних студій під час відсутності електрики (світла).
+
+</li>
+           <img class="img" src="station_files/stark333.jpg" alt="СКЛАДАНИЙ СТІЛЕЦЬ-РЮКЗАК ІЗ ТЕРМОСУМКОЮ переваги">
+
+
+
+
+
+
+          </div>
+        </div>
+
+
+
+
+        <a href="#order_form" class="button">Замовити зі знижкою</a>
+
+
+  -->
+       
+    </div></section>
+
+   
+	
+    <!-- <section class="video_section description_section">
+			<h2 class="title">Відео-огляд пристрою</h2>
+			<div class="video_block">
+				<div class="youtube" id="Z9xSc4JE4os"></div>
+			</div>
+		</section> -->
+
+    <!-- /benefits -->
+   
+      <!-- <div style="margin: 0 30px; font-weight: 700;">Комплектація:</div>
+			<ul>
+				<li>Алкотестер - 1 шт</li>
+				<li>Змінні мундштуки - 10 шт</li>
+				<li>Гарантійний талон</li>
+				<li>Інструкція (англійська, російська).</li>
+			</ul> -->
+
+      <!-- </section>
+		<section class="offer_section">
+			<h2 class="title">Сертифікат якості</h2>
+			<img class="img-text" src="img/sert.jpg">
+		</section> -->
+
+     
+<style>
+  .reviews {
+    padding: 60px 16px;
+    background: linear-gradient(135deg, #f7f8fa, #ffffff);
+    text-align: center;
+  }
+
+  .reviews h2 {
+    font-size: 28px;
+    margin-bottom: 32px;
+    color: #222;
+  }
+
+  .reviews-scroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 16px;
+  }
+
+  .review-card {
+    min-width: 300px;
+    background: #fff;
+    border-radius: 22px;
+    padding: 24px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    text-align: left;
+    border: 1px solid #eee;
+  }
+
+  .stars {
+    color: #f5b301;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .review-text {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+    color: #333;
+  }
+
+  .review-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: #111;
+  }
+
+  .scroll-hint {
+    font-size: 13px;
+    color: #666;
+    margin-top: 16px;
+  }
+</style>
+
+<section class="reviews">
+  <h2>Відгуки наших клієнтів</h2>
+
+  <div class="reviews-scroll" id="reviewsScroll">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">Дуже зручний чохол, телефон перестав ковзати в руці.</p>
+      <div class="review-name">Олександр, Київ</div>
+    </div>
+
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">Ідеально підійшов для iPhone, виглядає стильно.</p>
+      <div class="review-name">Ірина, Львів</div>
+    </div>
+
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">Зручно дивитися відео, користуюсь щодня.</p>
+      <div class="review-name">Максим, Дніпро</div>
+    </div>
+
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">Якість супер, доставка швидка.</p>
+      <div class="review-name">Анна, Одеса</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">Гортайте або дивіться — відгуки рухаються автоматично →</div>
+</section>
+
+<script>
+  const scrollContainer = document.getElementById('reviewsScroll');
+  let scrollAmount = 0;
+
+  setInterval(() => {
+    scrollAmount += 320;
+    if (scrollAmount >= scrollContainer.scrollWidth - scrollContainer.clientWidth) {
+      scrollAmount = 0;
+    }
+    scrollContainer.scrollTo({
+      left: scrollAmount,
+      behavior: 'smooth'
+    });
+  }, 3500);
+</script>
+
+       
+      <section class="order_steps_section">
+        <h2 class="title">Як оформити замовлення?</h2>
+        <div class="order_steps_list1 clearfix">
+          <div class="step_item">
+            <h4>Заявка</h4>
+            <p>Залишаєте заявку на нашому сайті</p>
+          </div>
+          <div class="step_item">
+            <h4>Дзвінок</h4>
+            <p>Менеджер передзвонить для уточнення деталей</p>
+          </div>
+		  <div class="step_item">
+            <h4>Надсилання</h4>
+            <p>Доставляємо ваш товар протягом 1-3 днів</p>
+          </div>
+          <div class="step_item">
+            <h4>Отримання</h4>
+            <p>Оплачуєте при отриманні на пошті</p>
+          </div>
+        </div>
+		
+      </section>
+      <section class="offer_section offer3">
+        <div class="title_block">
+          <h1 class="main_title">чохли на АЙФОНИ<br> </h1><h2></h2>
+        </div>
+        <div class="image_block">
+          <img class="offer_image" src="station_files/ronin21.jpg" alt="">
+          <!-- <div class="discount_block">
+            <div class="value">-
+              %
+            </div>
+            <div class="text">знижка</div>
+          </div> -->
+        </div>
+        <div class="benefits_list clearfix">
+          <div class="benefit_item">Доставка по Україні</div>
+          <div class="benefit_item">Обмежена пропозиція</div>
+          <div class="benefit_item">Оплата при отриманні</div>
+        </div>
+        <div class="price_block clearfix">
+          <div class="price_item old">
+            <div class="text">Звичайна ціна:</div>
+            <div class="value">
+              429грн
+            </div>
+          </div>
+          <div class="price_item new">
+            <div class="text">Ціна зі знижкою:</div>
+            <div class="value" style="color: red;">
+              299грн
+            </div>
+          </div>
+        </div>
+<script>document.addEventListener('DOMContentLoaded', function () {
+  function createTimer(elementId, durationInMinutes) {
+      const endDate = new Date(new Date().getTime() + durationInMinutes * 60 * 1000);
+      const hoursElem = document.querySelector(`#${elementId} .count.hours`);
+      const minutesElem = document.querySelector(`#${elementId} .count.minutes`);
+      const secondsElem = document.querySelector(`#${elementId} .count.seconds`);
+
+      function updateTimer() {
+          const now = new Date();
+          let timeLeft = endDate - now;
+
+          if (timeLeft <= 0) {
+              // Якщо час вийшов, перезапускаємо таймер на вказану тривалість
+              timeLeft = durationInMinutes * 60 * 1000;
+              endDate.setTime(new Date().getTime() + timeLeft);
+          }
+
+          const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+          const seconds = Math.floor((timeLeft / 1000) % 60);
+
+          hoursElem.textContent = hours.toString().padStart(2, '0');
+          minutesElem.textContent = minutes.toString().padStart(2, '0');
+          secondsElem.textContent = seconds.toString().padStart(2, '0');
+      }
+
+      setInterval(updateTimer, 1000);
+      updateTimer(); // Початковий виклик
+  }
+
+  // Створюємо два таймери з однаковою тривалістю (60 хвилин)
+  createTimer("first-timer", 60);
+  createTimer("second-timer", 60);
+});</script>
+       <div class="timer" id="second-timer">
+        <p>Пропозиція діє:</p>
+        <br>
+        <div class="timer_container">
+            <div class="timer_block">
+                <div class="count hours">00</div>
+                <div class="text">годин</div>
+            </div>
+            <div class="timer_block">
+                <div class="count minutes">59</div>
+                <div class="text">хвилин</div>
+            </div>
+            <div class="timer_block">
+                <div class="count seconds">10</div>
+                <div class="text">секунд</div>
+            </div>
+        </div>
+    </div>
+    <style>
+  .iphone-note {
+    color: #d32f2f;
+    font-size: 15px;
+    font-weight: 700; /* жирно */
+    text-align: center; /* по центру */
+  }
+</style>
+
+<p class="iphone-note">
+  Наявність моделей для <strong>iPhone</strong> уточнюйте у менеджера
+</p>
+
+<style>.timer {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin: 20px auto;
+  color: #333;
+}
+
+.timer_container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.timer_block {
+  background-color: #d3d3d3;
+  border-radius: 5px;
+  padding: 15px;
+  width: 110px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.count {
+  font-size: 28px;
+  color: #333;
+}
+
+.text {
+  font-size: 14px;
+  color: #555;
+}
+</style>
+
+<form id="order_form" class="order_form" action="" method="POST">
+  <input class="field" type="text" name="name" placeholder="Ваше ім&#39;я та прізвище" required="">
+  <input class="field" type="tel" name="phone" minlength="10" maxlength="15" placeholder="Ваш телефон" required="">
+  
+  <!-- Пункт для вибору моделі -->
+  <select class="field" name="shoe_choice" required="">
+      <option value="">Оберіть чохол</option>
+      <option value="чохол срібний 299 грн">чохол срібний 299 грн</option>
+      <option value="чохол чорний 299 грн">чохол чорний 299 грн</option>
+      <option value="чохол фіолетовий 299 грн">чохол фіолетовий 299 грн</option>
+       <option value="Потрібна консультація">Потрібна консультація</option>
+      <!-- <option value="BLUETTI 2400 Вт - 51999 грн">BLUETTI 2400 Вт - 51999 грн</option>
+      <option value="TIG FOX 500 Вт - 9999 грн">TIG FOX 500 Вт - 9999 грн</option>
+      <option value="Потрібно консультація">Потрібно консультація</option> -->
+  </select>
+
+  <img src="station_files/loading.gif" alt="./station_files/thank_you_page.html" class="img-loading">
+  <button class="button" type="submit">Замовити зі знижкою</button>
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('order_form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var name = document.querySelector('input[name="name"]').value.trim();
+        var phone = document.querySelector('input[name="phone"]').value.trim();
+        var shoeChoice = document.querySelector('select[name="shoe_choice"]').value;
+
+        if (!name || !phone || !shoeChoice) {
+            alert("Будь ласка, заповніть усі поля.");
+            return;
+        }
+
+        var message = `⚡ НОВЕ ЗАМОВЛЕННЯ (чохли)\n👤 Ім'я та прізвище: ${name}\n📞 Телефон: ${phone}\n📱 Обраний чохол: ${shoeChoice}`;
+
+        var token = '6897804929:AAE7BfzBRNefcjG5gpyx7KbLTmqf-13MwTY';
+        var chatId = -4251179444; // твій chat_id
+
+        fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: message
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                console.log("✅ Заявка відправлена в Telegram", data);
+                window.location.href = "./station_files/thank_you_page.html"; 
+            } else {
+                console.error("❌ Помилка Telegram:", data);
+                alert("Помилка Telegram: " + data.description);
+            }
+        })
+        .catch((error) => {
+            console.error("❌ Fetch Error:", error);
+            alert("Помилка при відправленні замовлення. Перевір підключення.");
+        });
+    });
+});
+</script>
+
+
+        
+
+
+
+      </section>
+
+      <!-- footer -->
+
+      <footer class="footer_section">
+        <div style="font-size:13px;text-align: center;">
+          <a style="color:inherit;" href="https://rjukzak3v1.trend11.shop/politics.html">Політика конфеденційності</a>
+          <br>
+          <a style="color:inherit;" href="https://rjukzak3v1.trend11.shop/agreement.html">Угода користувача</a>
+          <br>
+          <a style="color:inherit;" href="https://rjukzak3v1.trend11.shop/garantiya.html">Умови гарантії та повернення</a>
+          <br> Всі права захищені © 2010-2025
+
+        </div>
+      </footer>
+     
+      <style>
+        .yved {
+          position: fixed;
+          top: 10px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 300px;
+          text-align: center;
+          color: white;
+          padding: 10px;
+          font-size: 15px;
+          border-radius: 10px;
+          display: none;
+          z-index: 9999;
+        }
+        
+        .yvedf1 {
+          background-color: #363636;
+        }
+        
+        .yvedf2 {
+          background-color: #CD5555;
+        }
+        
+        .img-loading {
+          display: none;
+          width: 50px;
+          margin: 0 auto;
+        }
+      </style>
+
+      <script src="station_files/jquery.min%281%29.js.%D0%B7%D0%B0%D0%B2%D0%B0%D0%BD%D1%82%D0%B0%D0%B6%D0%B5%D0%BD%D0%BD%D1%8F"></script>
+      <script src="station_files/previewYouTube.js.%D0%B7%D0%B0%D0%B2%D0%B0%D0%BD%D1%82%D0%B0%D0%B6%D0%B5%D0%BD%D0%BD%D1%8F"></script></div><script id="9wLnNpdGUv" src="station_files/ga"></script><script id="N0b3JlLw==" src="station_files/ga(1)"></script></body></html>
